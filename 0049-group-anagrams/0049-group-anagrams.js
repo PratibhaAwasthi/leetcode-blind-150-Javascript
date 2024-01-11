@@ -3,24 +3,23 @@
  * @return {string[][]}
  */
 var groupAnagrams = function(strs) {
-
-    let hashMap = {}
-
-    for(let i =0; i<strs.length; i++){
-
-        let sortedStr = strs[i].split('').sort().join('');
-
-        if(hashMap[sortedStr] === undefined){
-            hashMap[sortedStr] = [strs[i]]
+    
+//Brute-force
+//Time Complexity
+    
+    let cache = {};
+    
+    for(let s of strs){
+        
+        let sorted = s.split('').sort().join('')
+        
+        if(!cache[sorted]){
+            cache[sorted] = [s]
         }
-
         else{
-            hashMap[sortedStr].push(strs[i])
+            cache[sorted].push(s)
         }
     }
-
-    let result = Object.values(hashMap)
-
-    return result
     
+    return Object.values(cache)
 };
