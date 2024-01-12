@@ -4,7 +4,7 @@
  */
 var groupAnagrams = function(strs) {
     
-    let ans = new Map ();
+    let ans = {};
     
     for(let s of strs){
         
@@ -16,13 +16,13 @@ var groupAnagrams = function(strs) {
         
         let key = count.join('#');
         
-        if(!ans.has(key)) {
-            ans.set(key, [s])
+        if(!ans[key]) {
+            ans[key] = [s]
         }
         else{
-            ans.get(key).push(s)
+            ans[key].push(s)
         }
                              
     }
-    return Array.from(ans.values());
+    return Object.values(ans);
 };
