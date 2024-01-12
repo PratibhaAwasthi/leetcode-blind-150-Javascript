@@ -4,22 +4,25 @@
  */
 var groupAnagrams = function(strs) {
     
-//Brute-force
-//Time Complexity
-    
-    let cache = {};
+    let ans = new Map ();
     
     for(let s of strs){
         
-        let sorted = s.split('').sort().join('')
+        let count = Array(26).fill(0);
         
-        if(!cache[sorted]){
-            cache[sorted] = [s]
+        for(let c of s){
+           count[c.charCodeAt(0) - 'a'.charCodeAt(0)] +=1;
+        }
+        
+        let key = count.join('#');
+        
+        if(!ans.has(key)) {
+            ans.set(key, [s])
         }
         else{
-            cache[sorted].push(s)
+            ans.get(key).push(s)
         }
+                             
     }
-    
-    return Object.values(cache)
+    return Array.from(ans.values());
 };
