@@ -3,33 +3,27 @@
  * @return {number}
  */
 var longestConsecutive = function(nums) {
-    /*
-    input: unsorted array->nums
-    [100,4,200,1,3,2]
+    //Optimised 
+   //[100,4,200,1,3,2]
     
-    output: length 
+    if(nums.length === 0) return 0
     
-    action: 
-    Brute-force -> sort of array
-    [1,2,3,4,100,200]
+    let set = new Set(nums)
+    let result = 0;
     
-    
-    */
-    if(nums.length === 0) return 0               
-    
-    nums.sort((a,b) => a-b)                  //O(NlogN)
-    let result  = 0                         
-    let temp = 0
-    
-    for(let i = 0; i<nums.length;i++){ 
-        if(nums[i] === nums[i+1]) continue
-        temp++           
-        if(nums[i]+1 !== nums[i+1]){
-            result = Math.max(result, temp)
-            temp = 0;
-        } 
+    for(elements of set){
+        if(set.has(elements - 1)) continue
+        let currLength = 1;
         
+        while(set.has(elements+1)){
+            currLength++
+            elements++
+        }
+        
+        result = Math.max(currLength, result)
     }
     
-    return result                                            
+    return result;
+    
+
 };
