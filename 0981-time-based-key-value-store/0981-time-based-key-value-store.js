@@ -12,9 +12,13 @@ keyM: [[time1,value1], [time2,value2], ... [timeN],[valueN]]
 */
 
 
-let timeKeyMap = {}
-var TimeMap = function() {
-     timeKeyMap = {}
+
+class TimeMap {
+    constructor () 
+    { 
+    let timeKeyMap
+    this.timeKeyMap = {}
+    }
 };
 
 /** 
@@ -24,11 +28,11 @@ var TimeMap = function() {
  * @return {void}
  */
 TimeMap.prototype.set = function(key, value, timestamp) {
-    if (!(key in timeKeyMap)){
-        timeKeyMap[key] = []
+    if (!(key in this.timeKeyMap)){
+        this.timeKeyMap[key] = []
     }
     
-    timeKeyMap[key].push([timestamp, value])
+    this.timeKeyMap[key].push([timestamp, value])
 };
 
 /** 
@@ -38,14 +42,14 @@ TimeMap.prototype.set = function(key, value, timestamp) {
  */
 TimeMap.prototype.get = function(key, timestamp) {
     
-    if(!(key in timeKeyMap)) return ""
-    if(timeKeyMap[key][0][0] > timestamp) return ""
+    if(!(key in this.timeKeyMap)) return ""
+    if(this.timeKeyMap[key][0][0] > timestamp) return ""
     
-    let left = 0, right = timeKeyMap[key].length
+    let left = 0, right = this.timeKeyMap[key].length
     while(left<right) {
         let mid = Math.floor((left+right)/2)
         
-        if (timeKeyMap[key][mid][0] <= timestamp ){
+        if (this.timeKeyMap[key][mid][0] <= timestamp ){
             left = mid+1
         } else{
             right = mid
@@ -54,7 +58,7 @@ TimeMap.prototype.get = function(key, timestamp) {
     
     if(right === 0) return "";
     
-    return timeKeyMap[key][right-1][1]
+    return this.timeKeyMap[key][right-1][1]
 };
 
 /** 
